@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+
+<!--    bean标签范围配置 ， scope(singleton、prototype)-->
+<!--    通过目标类的无参构造来创建bean对象-->
+
+<!--    init-method、destory-method 初始化bean和销毁bean需要做的操作-->
+<!--    <bean id="userDao" class="com.example.bs.dao.Impl.UserDaoImpl" scope="singleton" init-method="init" destroy-method="destory"></bean>-->
+
+
+<!--    通过静态工厂实例化bean-->
+<!--    <bean id="userDao" class="com.example.bs.factory.StaticFactory" factory-method="getUserDao"></bean>-->
+
+
+<!--    通过工厂实例化bean-->
+<!--    获取到工厂对象，再调用工厂实例化方法-->
+<!--    <bean id="factory" class="com.example.bs.factory.DynamicFactory"></bean>-->
+<!--    <bean id="userDao" factory-bean="factory" factory-method="getUserDao"></bean>-->
+
+<!--    基本数据类型的注入-->
+<!--        <bean id="userDao" class="com.example.bs.dao.Impl.UserDaoImpl">-->
+<!--            <property name="username" value="baozi"/>-->
+<!--            <property name="age" value="22"/>-->
+<!--        </bean>-->
+
+<!--    集合数据类型注入-->
+<!--    list类型-->
+    <bean id="userDao" class="com.example.bs.dao.Impl.UserDaoImpl">
+        <property name="strList">
+            <list>
+                <value>aaa</value>
+                <value>bbb</value>
+                <value>ccc</value>
+            </list>
+        </property>
+
+<!--        map 类型-->
+        <property name="userMap">
+            <map>
+                <entry key="u1" value-ref="user1"/>
+                <entry key="u2" value-ref="user2"/>
+            </map>
+        </property>
+<!--        properties 类型-->
+        <property name="properties">
+            <props>
+                <prop key="baozijiuban">baobao138</prop>
+                <prop key="baozi">baozibaozi</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="user1" class="com.example.bs.entity.User">
+        <property name="name" value="包嵩"/>
+        <property name="adrr" value="北京"/>
+    </bean>
+    <bean id="user2" class="com.example.bs.entity.User">
+        <property name="name" value="包子"/>
+        <property name="adrr" value="上海"/>
+    </bean>
+
+
+
+        <bean id="userService" class="com.example.bs.serviceImpl.UserServiceImpl">
+            <property name="userDao" ref="userDao"></property>
+        </bean>
+</beans>
